@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import SkillData from './data/SkillData.js';
-import SkillListItem from './components/SkillListItem.js';
+import SkillList from './components/SkillList.js';
 
 export default function App() {
   return(
     <View style={styles.screen}>
-      <SkillListItem skillIcon={SkillData.skill_001.icon} skillName={SkillData.skill_001.name} />
+      <SkillList />
     </View>
   );
 }
