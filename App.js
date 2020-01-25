@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import skillData from './data/swordsman.js';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-class FlatListItem extends Component {
-  render() {
-    return (
-      <View style={{padding: 10}}>
-        <Text>{this.props.item.name}</Text>
-      </View>
-    );
-  }
+import SkillData from './data/SkillData.js';
+import SkillListItem from './components/SkillListItem.js';
+
+export default function App() {
+  return(
+    <View style={styles.screen}>
+      <SkillListItem skillIcon={SkillData.skill_001.icon} skillName={SkillData.skill_001.name} />
+    </View>
+  );
 }
 
-export default class SkillList extends Component {
-  render() {
-    return (
-      <View>
-        <FlatList 
-          data={skillData}
-          renderItem={({item, id})=>{
-            return (
-              <FlatListItem
-                item={item} 
-                id={id}
-              />
-            );
-          }}
-        > 
-        </FlatList>
-      </View>
-    );
-  }
-}
+const styles = StyleSheet.create({
+  screen: {
+    alignItems: 'center',
+    backgroundColor: 'rgb(50, 50, 50)',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
