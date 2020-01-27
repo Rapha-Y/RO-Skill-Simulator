@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgb(75, 75, 75)',
         flexDirection: 'row',
-        height: 60,
+        height: 40,
         padding: 10,
     },
     skillLevel: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     skillName: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 16,
     },
 });
 

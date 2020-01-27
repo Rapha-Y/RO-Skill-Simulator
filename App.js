@@ -2,10 +2,12 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import SkillList from './components/SkillList.js';
+import SkillPageHeader from './components/SkillPageHeader.js';
 
 export default function App() {
   return(
     <View style={styles.screen}>
+      <SkillPageHeader />
       <SkillList />
     </View>
   );

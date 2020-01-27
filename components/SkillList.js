@@ -6,7 +6,7 @@ import SwordmanData from '../data/SwordmanData.js';
 
 const SkillList = props => {
     return (
-        <View>
+        <View style={styles.list}>
             <FlatList 
                 data={SwordmanData}
                 renderItem={({ item }) => <SkillListItem skillIcon={item.icon} skillName={item.name} />}
@@ -17,7 +17,9 @@ const SkillList = props => {
 }
 
 const styles = StyleSheet.create({
-
+    list: {
+        marginBottom: 80,
+    },
 });
 
 export default SkillList;
