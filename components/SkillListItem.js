@@ -1,7 +1,26 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, TouchableWithoutFeedback } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const SkillListItem = props => {
+    const [currentLevel, setCurrentLevel] = useState(0);
+    const [maxLevel, setMaxLevel] = useState(props.skillMaxLevel);
+
+    const changeCurrentLevel = changeType => {
+        if (changeType === 'min') {
+            setCurrentLevel(0);
+        } else if (changeType === 'sub') {
+            if(currentLevel > 0) {
+                setCurrentLevel(currentLevel-1);
+            }
+        } else if (changeType === 'add') {
+            if(currentLevel < maxLevel) {
+                setCurrentLevel(currentLevel+1);
+            }
+        } else if (changeType === 'max') {
+            setCurrentLevel(maxLevel);
+        }
+    }
+
     return (
         <View style={styles.item}>
             <View style={styles.skill}>
@@ -11,19 +30,19 @@ const SkillListItem = props => {
                 </View>
             </View>
             <View style={styles.interface}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'min')} style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'sub')} style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
-                    <Text style={styles.skillLevelText}>10/10</Text>
+                    <Text style={styles.skillLevelText}>{currentLevel}/{maxLevel}</Text>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'add')} style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'max')} style={styles.button}>
                     <Text style={styles.buttonText}>max</Text>
                 </TouchableOpacity>
             </View>

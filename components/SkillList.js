@@ -9,7 +9,12 @@ const SkillList = props => {
         <View style={styles.list}>
             <FlatList 
                 data={SwordmanData}
-                renderItem={({ item }) => <SkillListItem skillIcon={item.icon} skillName={item.name} />}
+                renderItem={({ item }) => <SkillListItem 
+                    skillIcon={item.icon} 
+                    skillLevel={item.level} 
+                    skillMaxLevel={item.maxLevel} 
+                    skillName={item.name} 
+                />}
                 keyExtractor={item => item.id}
             />
         </View>

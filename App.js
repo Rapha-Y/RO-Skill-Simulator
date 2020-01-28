@@ -9,7 +9,6 @@ export default function App() {
 
   const jobSelectionHandler = job => {
     setJob(job);
-    console.log(job);
   }
 
   let screen = <ClassSelector onJobSelection={jobSelectionHandler} />
