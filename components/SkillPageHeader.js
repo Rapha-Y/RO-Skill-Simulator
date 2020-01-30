@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 const SkillPageHeader = props => {
     return (
@@ -17,7 +17,7 @@ const SkillPageHeader = props => {
                 </View>
             </View>
             <View style={styles.skillPointsContainer}>
-                <Text style={styles.text}>1st: 50/50   2nd: 70/70   3rd: 60/60   Rest: 177</Text>
+                <Text style={styles.text}>1st: {props.firstJobLv}/{props.firstJobLvMax}   Rest: {props.remainingPoints}</Text>
             </View>
         </View>
     );

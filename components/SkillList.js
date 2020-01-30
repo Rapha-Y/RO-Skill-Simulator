@@ -10,6 +10,7 @@ const SkillList = props => {
             <FlatList 
                 data={SwordmanData}
                 renderItem={({ item }) => <SkillListItem 
+                    onChange={props.onChange}
                     skillIcon={item.icon} 
                     skillLevel={item.level} 
                     skillMaxLevel={item.maxLevel} 
