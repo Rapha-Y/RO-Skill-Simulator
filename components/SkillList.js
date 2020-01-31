@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 
 import SkillListItem from '../components/SkillListItem.js';
 import SwordmanData from '../data/SwordmanData.js'; 
-
+    
 const SkillList = props => {
     return (
         <View style={styles.list}>

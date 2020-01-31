@@ -30,22 +30,22 @@ const SkillListItem = props => {
                 </View>
             </View>
             <View style={styles.interface}>
-                <TouchableOpacity onPress={props.onChange.bind(this, 1)} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('min'); props.onChange(-currentLevel);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'sub')} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('sub'); props.onChange(-1);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
                     <Text style={styles.skillLevelText}>{currentLevel}/{maxLevel}</Text>
                 </View>
-                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'add')} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('add'); props.onChange(1);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={changeCurrentLevel.bind(this, 'max')} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('max'); props.onChange(maxLevel-currentLevel);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>max</Text>
                 </TouchableOpacity>
