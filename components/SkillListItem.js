@@ -21,6 +21,22 @@ const SkillListItem = props => {
         }
     }
 
+    const validateSubAdd = changeType => {
+        if (changeType === 'sub') {
+            if (currentLevel === 0) {
+                return 0;
+            } else {
+                return (-1);
+            }
+        } else if (changeType === 'add') {
+            if (currentLevel === maxLevel) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+    }
+
     return (
         <View style={styles.item}>
             <View style={styles.skill}>
@@ -34,14 +50,14 @@ const SkillListItem = props => {
                                   style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('sub'); props.onChange(-1);}} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('sub'); props.onChange(validateSubAdd('sub'));}}
                                   style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
                     <Text style={styles.skillLevelText}>{currentLevel}/{maxLevel}</Text>
                 </View>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('add'); props.onChange(1);}} 
+                <TouchableOpacity onPress={() => {changeCurrentLevel('add'); props.onChange(validateSubAdd('add'));}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>

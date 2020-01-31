@@ -10,7 +10,6 @@ const SkillSimulator = props => {
     const [rest, setRest] = useState(49);
 
     const levelHandler = firstCost => {
-        console.log('hi!');
         setFirstJobLevel(firstJobLevel + firstCost);
         setRest(rest - firstCost);
     }

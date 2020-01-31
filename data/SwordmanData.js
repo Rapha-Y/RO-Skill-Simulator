@@ -4,7 +4,6 @@ export default [
         name: 'Sword Mastery',
         icon: require('../icons/002.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -12,7 +11,6 @@ export default [
         name: 'Two Handed Sword Mastery',
         icon: require('../icons/003.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -20,7 +18,6 @@ export default [
         name: 'Increase HP Recovery',
         icon: require('../icons/004.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -28,7 +25,6 @@ export default [
         name: 'Bash',
         icon: require('../icons/005.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -36,7 +32,6 @@ export default [
         name: 'Provoke',
         icon: require('../icons/006.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -44,7 +39,6 @@ export default [
         name: 'Magnum Break',
         icon: require('../icons/007.png'),
 
-        level: 0,
         maxLevel: 10,
     },
     {
@@ -52,7 +46,6 @@ export default [
         name: 'Endure',
         icon: require('../icons/008.png'),
 
-        level: 0,
         maxLevel: 10,
     },
 ]
