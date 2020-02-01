@@ -1,67 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SwordmanData from '../data/SwordmanData';
 
 const SkillListItem = props => {
-    const [currentLevel, setCurrentLevel] = useState(0);
-    const [maxLevel, setMaxLevel] = useState(props.skillMaxLevel);
-
-    const changeCurrentLevel = changeType => {
-        if (changeType === 'min') {
-            setCurrentLevel(0);
-        } else if (changeType === 'sub') {
-            if(currentLevel > 0) {
-                setCurrentLevel(currentLevel-1);
-            }
-        } else if (changeType === 'add') {
-            if(currentLevel < maxLevel) {
-                setCurrentLevel(currentLevel+1);
-            }
-        } else if (changeType === 'max') {
-            setCurrentLevel(maxLevel);
-        }
+    const getSkillIcon = skillID => {
+        return SwordmanData.filter((item) => item.id == skillID).map(({icon}) => ({icon}))[0].icon;
     }
 
-    const validateSubAdd = changeType => {
-        if (changeType === 'sub') {
-            if (currentLevel === 0) {
-                return 0;
-            } else {
-                return (-1);
-            }
-        } else if (changeType === 'add') {
-            if (currentLevel === maxLevel) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
+    const getSkillName = skillID => {
+        return SwordmanData.filter((item) => item.id == skillID).map(({name}) => ({name}))[0].name;
     }
 
+    const getSkillLevel = skillID => {
+        return SwordmanData.filter((item) => item.id == skillID).map(({level}) => ({level}))[0].level;
+    }
+
+    const getSkillMaxLevel = skillID => {
+        return SwordmanData.filter((item) => item.id == skillID).map(({maxLevel}) => ({maxLevel}))[0].maxLevel;
+    }
+
+    const buttonPressHandler = (buttonType, skillID) => {
+        var listPosition = SwordmanData.findIndex(obj => obj.id === skillID);
+        if (buttonType === 'min') {
+            SwordmanData[listPosition].level = 0;
+        } else if (buttonType === 'sub') {
+            if (SwordmanData[listPosition].level > 0) {
+                SwordmanData[listPosition].level--;
+            }
+        } else if (buttonType === 'add') {
+            if (SwordmanData[listPosition].level < SwordmanData[listPosition].maxLevel) {
+                SwordmanData[listPosition].level++;
+            }
+        } else if (buttonType === 'max') {
+            SwordmanData[listPosition].level = SwordmanData[listPosition].maxLevel;
+        }
+        console.log(SwordmanData[listPosition].level);
+    }
+    
     return (
         <View style={styles.item}>
             <View style={styles.skill}>
-                <Image source={props.skillIcon}/>
+                <Image source={getSkillIcon(props.skillID)}/>
                 <View style={styles.itemText}>
-                    <Text style={styles.skillName}>{props.skillName}</Text>
+                    <Text style={styles.skillName}>{getSkillName(props.skillID)}</Text>
                 </View>
             </View>
             <View style={styles.interface}>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('min'); props.onChange(-currentLevel);}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('min', props.skillID);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('sub'); props.onChange(validateSubAdd('sub'));}}
+                <TouchableOpacity onPress={() => {buttonPressHandler('sub', props.skillID);}}
                                   style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
-                    <Text style={styles.skillLevelText}>{currentLevel}/{maxLevel}</Text>
+                    <Text style={styles.skillLevelText}>{getSkillLevel(props.skillID)}/{getSkillMaxLevel(props.skillID)}</Text>
                 </View>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('add'); props.onChange(validateSubAdd('add'));}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('add', props.skillID)}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {changeCurrentLevel('max'); props.onChange(maxLevel-currentLevel);}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('max', props.skillID)}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>max</Text>
                 </TouchableOpacity>

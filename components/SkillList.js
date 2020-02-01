@@ -11,10 +11,7 @@ const SkillList = props => {
                 data={SwordmanData}
                 renderItem={({ item }) => <SkillListItem 
                     onChange={props.onChange}
-                    skillIcon={item.icon} 
-                    skillLevel={item.level} 
-                    skillMaxLevel={item.maxLevel} 
-                    skillName={item.name} 
+                    skillID={item.id}
                 />}
                 keyExtractor={item => item.id}
             />
