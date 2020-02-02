@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SwordmanData from '../data/SwordmanData';
 
 const SkillListItem = props => {
+    const [levelUpdater, setLevelUpdater] = useState();
+
     const getSkillIcon = skillID => {
         return SwordmanData.filter((item) => item.id == skillID).map(({icon}) => ({icon}))[0].icon;
     }
@@ -34,9 +36,27 @@ const SkillListItem = props => {
         } else if (buttonType === 'max') {
             SwordmanData[listPosition].level = SwordmanData[listPosition].maxLevel;
         }
-        console.log(SwordmanData[listPosition].level);
+        setLevelUpdater(SwordmanData[listPosition].level);
     }
     
+    const exportedInfoHandler = (buttonType, skillID) => {
+        var listPosition = SwordmanData.findIndex(obj => obj.id === skillID);
+        if (buttonType === 'min') {
+            return -(SwordmanData[listPosition].level);
+        } else if (buttonType === 'sub') {
+            if (SwordmanData[listPosition].level > 0) {
+                return -1;
+            }
+        } else if (buttonType === 'add') {
+            if (SwordmanData[listPosition].level < SwordmanData[listPosition].maxLevel) {
+                return 1;
+            }
+        } else if (buttonType === 'max') {
+            return SwordmanData[listPosition].maxLevel-SwordmanData[listPosition].level;
+        }
+        return 0;
+    }
+
     return (
         <View style={styles.item}>
             <View style={styles.skill}>
@@ -46,22 +66,22 @@ const SkillListItem = props => {
                 </View>
             </View>
             <View style={styles.interface}>
-                <TouchableOpacity onPress={() => {buttonPressHandler('min', props.skillID);}} 
+                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('min', props.skillID)); buttonPressHandler('min', props.skillID);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {buttonPressHandler('sub', props.skillID);}}
+                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('sub', props.skillID)); buttonPressHandler('sub', props.skillID);}}
                                   style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
                     <Text style={styles.skillLevelText}>{getSkillLevel(props.skillID)}/{getSkillMaxLevel(props.skillID)}</Text>
                 </View>
-                <TouchableOpacity onPress={() => {buttonPressHandler('add', props.skillID)}} 
+                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('add', props.skillID)); buttonPressHandler('add', props.skillID);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {buttonPressHandler('max', props.skillID)}} 
+                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('max', props.skillID)); buttonPressHandler('max', props.skillID);}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>max</Text>
                 </TouchableOpacity>
