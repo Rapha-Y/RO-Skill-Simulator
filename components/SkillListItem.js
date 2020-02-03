@@ -25,16 +25,52 @@ const SkillListItem = props => {
         var listPosition = SwordmanData.findIndex(obj => obj.id === skillID);
         if (buttonType === 'min') {
             SwordmanData[listPosition].level = 0;
+
+            var i, dependentItem, dependentPosition;
+            for (i=0;i<SwordmanData[listPosition].dependent.length;i++) {
+                dependentItem = SwordmanData[listPosition].dependent[i];
+                dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
+                if (SwordmanData[listPosition].level < dependentItem[1]) {
+                    SwordmanData[dependentPosition].level = 0;
+                }
+            }
         } else if (buttonType === 'sub') {
             if (SwordmanData[listPosition].level > 0) {
                 SwordmanData[listPosition].level--;
             }
+
+            var i, dependentItem, dependentPosition;
+            for (i=0;i<SwordmanData[listPosition].dependent.length;i++) {
+                dependentItem = SwordmanData[listPosition].dependent[i];
+                dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
+                if (SwordmanData[listPosition].level < dependentItem[1]) {
+                    SwordmanData[dependentPosition].level = 0;
+                }
+            }
         } else if (buttonType === 'add') {
             if (SwordmanData[listPosition].level < SwordmanData[listPosition].maxLevel) {
                 SwordmanData[listPosition].level++;
+
+                var i, preReqItem, preReqPosition;
+                for (i=0;i<SwordmanData[listPosition].preReq.length;i++) {
+                    preReqItem = SwordmanData[listPosition].preReq[i];
+                    preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
+                    if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+                        SwordmanData[preReqPosition].level = preReqItem[1];
+                    }
+                }
             }
         } else if (buttonType === 'max') {
             SwordmanData[listPosition].level = SwordmanData[listPosition].maxLevel;
+
+            var i, preReqItem, preReqPosition;
+            for (i=0;i<SwordmanData[listPosition].preReq.length;i++) {
+                preReqItem = SwordmanData[listPosition].preReq[i];
+                preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
+                if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+                    SwordmanData[preReqPosition].level = preReqItem[1];
+                }
+            }
         }
         setLevelUpdater(SwordmanData[listPosition].level);
     }

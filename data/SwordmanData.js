@@ -6,6 +6,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+
+        preReq: [],
+        dependent: [[3, 1]],
     },
     {
         id: 3,
@@ -14,6 +17,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+
+        preReq: [[2, 1]],
+        dependent: [],
     },
     {
         id: 4,
@@ -22,6 +28,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+
+        preReq: [],
+        dependent: [],
     },
     {
         id: 5,
@@ -30,6 +39,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+        
+        preReq: [],
+        dependent: [[7, 5]],
     },
     {
         id: 6,
@@ -38,6 +50,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+
+        preReq: [],
+        dependent: [[8, 5]],
     },
     {
         id: 7,
@@ -46,6 +61,9 @@ export default [
 
         level: 0,
         maxLevel: 10,
+
+        preReq: [[5, 5]],
+        dependent: [],
     },
     {
         id: 8,
@@ -54,5 +72,8 @@ export default [
 
         level: 0,
         maxLevel: 10,
+        
+        preReq: [[6, 5]],
+        dependent: [],
     },
 ]
