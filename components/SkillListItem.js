@@ -32,6 +32,7 @@ const SkillListItem = props => {
                 dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
                 if (SwordmanData[listPosition].level < dependentItem[1]) {
                     SwordmanData[dependentPosition].level = 0;
+                    buttonPressHandler('sub-propagation', dependentItem[0]);
                 }
             }
         } else if (buttonType === 'sub') {
@@ -45,6 +46,7 @@ const SkillListItem = props => {
                 dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
                 if (SwordmanData[listPosition].level < dependentItem[1]) {
                     SwordmanData[dependentPosition].level = 0;
+                    buttonPressHandler('sub-propagation', dependentItem[0]);
                 }
             }
         } else if (buttonType === 'add') {
@@ -57,6 +59,7 @@ const SkillListItem = props => {
                     preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
                     if (SwordmanData[preReqPosition].level < preReqItem[1]) {
                         SwordmanData[preReqPosition].level = preReqItem[1];
+                        buttonPressHandler('add-propagation', preReqItem[0]);
                     }
                 }
             }
@@ -69,6 +72,27 @@ const SkillListItem = props => {
                 preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
                 if (SwordmanData[preReqPosition].level < preReqItem[1]) {
                     SwordmanData[preReqPosition].level = preReqItem[1];
+                    buttonPressHandler('add-propagation', preReqItem[0]);
+                }
+            }
+        } else if (buttonType == 'sub-propagation') {
+            var i, dependentItem, dependentPosition;
+            for (i=0;i<SwordmanData[listPosition].dependent.length;i++) {
+                dependentItem = SwordmanData[listPosition].dependent[i];
+                dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
+                if (SwordmanData[listPosition].level < dependentItem[1]) {
+                    SwordmanData[dependentPosition].level = 0;
+                    buttonPressHandler('sub-propagation', dependentItem[0]);
+                }
+            }
+        } else if (buttonType == 'add-propagation') {
+            var i, preReqItem, preReqPosition;
+            for (i=0;i<SwordmanData[listPosition].preReq.length;i++) {
+                preReqItem = SwordmanData[listPosition].preReq[i];
+                preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
+                if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+                    SwordmanData[preReqPosition].level = preReqItem[1];
+                    buttonPressHandler('add-propagation', preReqItem[0]);
                 }
             }
         }
