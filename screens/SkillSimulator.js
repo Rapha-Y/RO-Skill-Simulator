@@ -4,23 +4,25 @@ import { StyleSheet, View } from 'react-native';
 import SkillList from '../components/SkillList.js';
 import SkillPageHeader from '../components/SkillPageHeader.js';
 
-const SkillSimulator = props => {
-    const [firstJobLevel, setFirstJobLevel] = useState(1);
-    const [maxfirstJobLevel, setMaxFirstJobLevel] = useState(50);
-    const [rest, setRest] = useState(49);
+import LevelData from '../data/LevelData.js';
 
-    const levelHandler = firstCost => {
-        setFirstJobLevel(firstJobLevel + firstCost);
-        setRest(rest - firstCost);
+const SkillSimulator = props => {
+    const [firstJobLevel, setFirstJobLevel] = useState(LevelData[0].jobData[0][0]);
+    const [firstJobMax, setFirstJobMax] = useState(LevelData[0].jobData[0][1]);
+    const [rest, setRest] = useState(LevelData[0].rest);
+
+    const levelHandler = () => {
+        setFirstJobLevel(LevelData[0].jobData[0][0]);
+        setRest(LevelData[0].rest);
     }
 
     return(
         <View style={styles.screen}>
             <SkillPageHeader 
-                firstJobLv={firstJobLevel} 
-                firstJobLvMax={maxfirstJobLevel} 
-                onBack={props.onReturn} 
-                remainingPoints={rest} 
+                onBack={props.onReturn}
+                firstJobLevel={firstJobLevel}
+                firstJobMax={firstJobMax}
+                rest={rest}
             />
             <SkillList onChange={levelHandler} />
         </View>

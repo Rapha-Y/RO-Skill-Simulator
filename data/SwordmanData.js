@@ -19,7 +19,7 @@ export default [
         maxLevel: 10,
 
         preReq: [[2, 1]],
-        dependent: [[4,1]], //revert to [] when done
+        dependent: [],
     },
     {
         id: 4,
@@ -29,10 +29,9 @@ export default [
         level: 0,
         maxLevel: 10,
 
-        preReq: [[3,1]], //revert to [] when done
+        preReq: [],
         dependent: [],
     },
-    /*
     {
         id: 5,
         name: 'Bash',
@@ -77,5 +76,4 @@ export default [
         preReq: [[6, 5]],
         dependent: [],
     },
-    */
 ]

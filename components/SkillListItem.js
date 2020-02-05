@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
 import SwordmanData from '../data/SwordmanData';
+import LevelData from '../data/LevelData.js';
 
 const SkillListItem = props => {
     const [levelUpdater, setLevelUpdater] = useState();
@@ -21,8 +23,11 @@ const SkillListItem = props => {
         return SwordmanData.filter((item) => item.id == skillID).map(({maxLevel}) => ({maxLevel}))[0].maxLevel;
     }
 
-    const buttonPressHandler = (buttonType, skillID) => {
+    const buttonPressHandler = (buttonType, skillID, changeFunc) => {
         var listPosition = SwordmanData.findIndex(obj => obj.id === skillID);
+
+        var preChangeLevel = SwordmanData[listPosition].level; // ugly fix
+
         if (buttonType === 'min') {
             SwordmanData[listPosition].level = 0;
 
@@ -31,8 +36,17 @@ const SkillListItem = props => {
                 dependentItem = SwordmanData[listPosition].dependent[i];
                 dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
                 if (SwordmanData[listPosition].level < dependentItem[1]) {
+
+                    var dependentPreChangeLevel = SwordmanData[dependentPosition].level; // ugly fix
+
                     SwordmanData[dependentPosition].level = 0;
-                    buttonPressHandler('sub-propagation', dependentItem[0]);
+
+                    /* ugly fix */
+                    var dependentPostChangeLevel = SwordmanData[dependentPosition].level;
+                    LevelData[0].jobData[0][0] += (dependentPostChangeLevel-dependentPreChangeLevel);
+                    LevelData[0].rest -= (dependentPostChangeLevel-dependentPreChangeLevel);
+
+                    buttonPressHandler('sub-propagation', dependentItem[0], changeFunc);
                 }
             }
         } else if (buttonType === 'sub') {
@@ -45,8 +59,17 @@ const SkillListItem = props => {
                 dependentItem = SwordmanData[listPosition].dependent[i];
                 dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
                 if (SwordmanData[listPosition].level < dependentItem[1]) {
+
+                    var dependentPreChangeLevel = SwordmanData[dependentPosition].level; // ugly fix
+
                     SwordmanData[dependentPosition].level = 0;
-                    buttonPressHandler('sub-propagation', dependentItem[0]);
+
+                    /* ugly fix */
+                    var dependentPostChangeLevel = SwordmanData[dependentPosition].level;
+                    LevelData[0].jobData[0][0] += (dependentPostChangeLevel-dependentPreChangeLevel);
+                    LevelData[0].rest -= (dependentPostChangeLevel-dependentPreChangeLevel);
+
+                    buttonPressHandler('sub-propagation', dependentItem[0], changeFunc);
                 }
             }
         } else if (buttonType === 'add') {
@@ -58,8 +81,17 @@ const SkillListItem = props => {
                     preReqItem = SwordmanData[listPosition].preReq[i];
                     preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
                     if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+
+                        var preReqPreChangeLevel = SwordmanData[preReqPosition].level; // ugly fix
+
                         SwordmanData[preReqPosition].level = preReqItem[1];
-                        buttonPressHandler('add-propagation', preReqItem[0]);
+
+                        /* ugly fix */
+                        var preReqPostChangeLevel = SwordmanData[preReqPosition].level;
+                        LevelData[0].jobData[0][0] += (preReqPostChangeLevel-preReqPreChangeLevel);
+                        LevelData[0].rest -= (preReqPostChangeLevel-preReqPreChangeLevel);
+
+                        buttonPressHandler('add-propagation', preReqItem[0], changeFunc);
                     }
                 }
             }
@@ -71,8 +103,17 @@ const SkillListItem = props => {
                 preReqItem = SwordmanData[listPosition].preReq[i];
                 preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
                 if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+
+                    var preReqPreChangeLevel = SwordmanData[preReqPosition].level; // ugly fix
+
                     SwordmanData[preReqPosition].level = preReqItem[1];
-                    buttonPressHandler('add-propagation', preReqItem[0]);
+
+                    /* ugly fix */
+                    var preReqPostChangeLevel = SwordmanData[preReqPosition].level;
+                    LevelData[0].jobData[0][0] += (preReqPostChangeLevel-preReqPreChangeLevel);
+                    LevelData[0].rest -= (preReqPostChangeLevel-preReqPreChangeLevel);
+
+                    buttonPressHandler('add-propagation', preReqItem[0], changeFunc);
                 }
             }
         } else if (buttonType == 'sub-propagation') {
@@ -81,8 +122,17 @@ const SkillListItem = props => {
                 dependentItem = SwordmanData[listPosition].dependent[i];
                 dependentPosition = SwordmanData.findIndex(obj => obj.id === dependentItem[0]);
                 if (SwordmanData[listPosition].level < dependentItem[1]) {
+
+                    var dependentPreChangeLevel = SwordmanData[dependentPosition].level; // ugly fix
+
                     SwordmanData[dependentPosition].level = 0;
-                    buttonPressHandler('sub-propagation', dependentItem[0]);
+
+                    /* ugly fix */
+                    var dependentPostChangeLevel = SwordmanData[dependentPosition].level;
+                    LevelData[0].jobData[0][0] += (dependentPostChangeLevel-dependentPreChangeLevel);
+                    LevelData[0].rest -= (dependentPostChangeLevel-dependentPreChangeLevel);
+
+                    buttonPressHandler('sub-propagation', dependentItem[0], changeFunc);
                 }
             }
         } else if (buttonType == 'add-propagation') {
@@ -91,30 +141,28 @@ const SkillListItem = props => {
                 preReqItem = SwordmanData[listPosition].preReq[i];
                 preReqPosition = SwordmanData.findIndex(obj => obj.id === preReqItem[0]);
                 if (SwordmanData[preReqPosition].level < preReqItem[1]) {
+                    
+                    var dependentPreChangeLevel = SwordmanData[dependentPosition].level; // ugly fix
+                   
                     SwordmanData[preReqPosition].level = preReqItem[1];
-                    buttonPressHandler('add-propagation', preReqItem[0]);
+
+                    /* ugly fix */
+                    var preReqPostChangeLevel = SwordmanData[preReqPosition].level;
+                    LevelData[0].jobData[0][0] += (preReqPostChangeLevel-preReqPreChangeLevel);
+                    LevelData[0].rest -= (preReqPostChangeLevel-preReqPreChangeLevel);
+
+                    buttonPressHandler('add-propagation', preReqItem[0], changeFunc);
                 }
             }
         }
         setLevelUpdater(SwordmanData[listPosition].level);
-    }
-    
-    const exportedInfoHandler = (buttonType, skillID) => {
-        var listPosition = SwordmanData.findIndex(obj => obj.id === skillID);
-        if (buttonType === 'min') {
-            return -(SwordmanData[listPosition].level);
-        } else if (buttonType === 'sub') {
-            if (SwordmanData[listPosition].level > 0) {
-                return -1;
-            }
-        } else if (buttonType === 'add') {
-            if (SwordmanData[listPosition].level < SwordmanData[listPosition].maxLevel) {
-                return 1;
-            }
-        } else if (buttonType === 'max') {
-            return SwordmanData[listPosition].maxLevel-SwordmanData[listPosition].level;
-        }
-        return 0;
+
+        /* ugly fix */
+        var postChangeLevel = SwordmanData[listPosition].level;
+        LevelData[0].jobData[0][0] += (postChangeLevel-preChangeLevel);
+        LevelData[0].rest -= (postChangeLevel-preChangeLevel);
+
+        changeFunc();
     }
 
     return (
@@ -126,22 +174,22 @@ const SkillListItem = props => {
                 </View>
             </View>
             <View style={styles.interface}>
-                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('min', props.skillID)); buttonPressHandler('min', props.skillID);}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('min', props.skillID, props.onChange)}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>min</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('sub', props.skillID)); buttonPressHandler('sub', props.skillID);}}
+                <TouchableOpacity onPress={() => {buttonPressHandler('sub', props.skillID, props.onChange)}}
                                   style={styles.button}>
                     <Text style={styles.buttonText}>sub</Text>
                 </TouchableOpacity>
                 <View style={styles.skillLevel}>
                     <Text style={styles.skillLevelText}>{getSkillLevel(props.skillID)}/{getSkillMaxLevel(props.skillID)}</Text>
                 </View>
-                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('add', props.skillID)); buttonPressHandler('add', props.skillID);}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('add', props.skillID, props.onChange)}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {props.onChange(exportedInfoHandler('max', props.skillID)); buttonPressHandler('max', props.skillID);}} 
+                <TouchableOpacity onPress={() => {buttonPressHandler('max', props.skillID, props.onChange)}} 
                                   style={styles.button}>
                     <Text style={styles.buttonText}>max</Text>
                 </TouchableOpacity>

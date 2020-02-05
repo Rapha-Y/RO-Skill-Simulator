@@ -17,7 +17,9 @@ const SkillPageHeader = props => {
                 </View>
             </View>
             <View style={styles.skillPointsContainer}>
-                <Text style={styles.text}>1st: {props.firstJobLv}/{props.firstJobLvMax}   Rest: {props.remainingPoints}</Text>
+                <Text style={styles.text}>
+                    1st: {props.firstJobLevel}/{props.firstJobMax}   Rest: {props.rest}
+                </Text>
             </View>
         </View>
     );
